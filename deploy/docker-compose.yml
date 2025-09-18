@@ -1,0 +1,51 @@
+services:
+
+  postgres:
+    container_name: postgres
+    image: postgres
+    volumes:
+      - pg-data:/var/lib/postgresql/data # создание хранилища (без него все данные исчезнут после перезапуска контейнера)
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 16012006
+      POSTGRES_DB: htmlparser
+    networks:
+      - htmlparser_network
+
+  htmlparser:
+    container_name: htmlparser
+    image: htmlparser
+    environment:
+      PG_URL: postgres://postgres:16012006@postgres:5432/htmlparser?sslmode=disable
+      REDIS_URL: "redis:6379"
+      REDIS_PASSWORD: "redis_password"
+    #build: 
+    #  context: .
+    #  dockerfile: deploy/dockerfile
+    ports:
+      - "8081:8081"
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - htmlparser_network
+    restart: unless-stopped
+  
+  redis:
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data  
+    networks:
+      - htmlparser_network
+
+volumes:
+  pg-data:
+  redis-data:
+
+networks:
+  htmlparser_network:

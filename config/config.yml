@@ -1,0 +1,18 @@
+app:
+  name: "htmlParser"
+  version: "1.0.0"
+
+server:
+  host: "0.0.0.0"
+  port: 8081
+  shutdown_timeout: 10s
+
+postgres:
+  max_pool_size: 2
+
+redis:
+  ttl: 1h
+
+logger:
+  level: "info"
+

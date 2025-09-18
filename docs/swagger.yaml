@@ -1,0 +1,39 @@
+basePath: /
+host: localhost:8081
+info:
+  contact: {}
+  description: Server for parsing html
+  termsOfService: http://swagger.io/terms/
+  title: HTML Parser
+  version: "1.0"
+paths:
+  /data:
+    get:
+      consumes:
+      - application/json
+      description: get data by input url as result of html parsing
+      parameters:
+      - description: URL
+        in: query
+        name: url
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            type: string
+        "400":
+          description: no url is provided
+          schema:
+            type: string
+        "500":
+          description: internal server error
+          schema:
+            type: string
+      summary: get data by url
+      tags:
+      - data
+swagger: "2.0"

@@ -10,7 +10,7 @@ import (
 
 func (s *Server) setUpRouter() {
 	router := gin.Default()
-	router.Use(CORSMiddleware())
+	//router.Use(CORSMiddleware())
 	router.GET("/data", s.GetDataHander)
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	s.Server.Handler = router

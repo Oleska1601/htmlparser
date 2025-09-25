@@ -1,14 +1,14 @@
 package usecase
 
-import "htmlparser/pkg/logger"
+import "htmlparser/internal/logging"
 
 type Usecase struct {
 	cache  CacheInterface
 	pgRepo PgRepoInterface
-	logger logger.LoggerInterface
+	logger logging.LoggerInterface
 }
 
-func New(cache CacheInterface, pgRepo PgRepoInterface, logger logger.LoggerInterface) *Usecase {
+func New(cache CacheInterface, pgRepo PgRepoInterface, logger logging.LoggerInterface) *Usecase {
 	return &Usecase{
 		cache:  cache,
 		pgRepo: pgRepo,

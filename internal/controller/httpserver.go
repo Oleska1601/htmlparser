@@ -2,17 +2,17 @@ package controller
 
 import (
 	"fmt"
-	"htmlparser/pkg/logger"
+	"htmlparser/internal/logging"
 	"net/http"
 )
 
 type Server struct {
 	Server *http.Server
 	u      UsecaseInterface
-	l      logger.LoggerInterface
+	l      logging.LoggerInterface
 }
 
-func New(host string, port int, u UsecaseInterface, l logger.LoggerInterface) *Server {
+func New(host string, port int, u UsecaseInterface, l logging.LoggerInterface) *Server {
 	s := &Server{
 		Server: &http.Server{
 			Addr: fmt.Sprintf("%s:%d", host, port),

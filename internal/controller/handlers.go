@@ -19,7 +19,8 @@ import (
 // @Failure      400  {string}  string "no url is provided"
 // @Failure      500  {string}  string "internal server error"
 // @Router 		/data [get]
-func (s *Server) GetDataHander(c *gin.Context) {
+func (s *Server) GetDataHander(c *gin.Context) { // в usecase <- c.gin.Context() (создается на уровне входа, т.е)
+	ctx := c.Request.Context()
 	url := c.Query("url")
 	fmt.Println(url)
 	if url == "" {
@@ -29,7 +30,7 @@ func (s *Server) GetDataHander(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "no url is provided"})
 		return
 	}
-	data, err := s.u.GetParsingDataV1(url)
+	data, err := s.u.GetParsingDataV1(ctx, url)
 	if err != nil {
 		s.l.Error("GetDataHander s.u.GetParsingDataV1",
 			slog.Any("error", err.Error()),
